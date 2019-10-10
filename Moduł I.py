@@ -1,88 +1,94 @@
 from tkinter import *
+from keyboard import press
 import tkinter
 import random
 
+
+def esc():
+    S.destroy()
+
+
 def prt():
-    global x
-    def reset1():
+    global a, b, c, x, liczba
+
+    def reset():
+        global a, b, c, x, liczba
         twoja.destroy()
-        less.destroy()
+
+
+        if a == 1:
+            less.destroy()
+            a = 0
+        if b == 1:
+            more.destroy()
+            b = 0
+        if c == 1:
+            button3.destroy()
+            win.destroy()
+            liczba = random.randint(1, 100)
+            c = 0
+            x = -1
+
         line.destroy()
         proby.destroy()
         button2.destroy()
         prt()
 
-    def reset2():
-        twoja.destroy()
-        more.destroy()
-        line.destroy()
-        proby.destroy()
-        button2.destroy()
-        prt()
+    if box.get().isdigit():
+        if int(box.get()) < 0 or int(box.get()) > 100:
+            frombox = 0
+        else:
+            frombox = int(box.get())
+    else:
+        frombox = 0
 
-    def reset3():
-        twoja.destroy()
-        win.destroy()
-        line.destroy()
-        proby.destroy()
-        button2.destroy()
-        prt()
-
-    frombox = int(box.get())
-
-    box.delete( 0,'end')
+    box.delete(0, 'end')
 
     twoja = Label(S, text=("Twoja liczba: " + str(frombox)))
     twoja.pack()
 
     if frombox < liczba:
-        less = Label(S, text="za mała liczba")
+        less = Label(S, text="za mała liczba", fg="red")
         less.pack()
-        x+=1
-
-        proby= Label(S, text="Ilość prób: "+str(x))
-        proby.pack()
-        line = Label(S, text="============")
-        line.pack()
-
-        button.destroy()
-
-        button2 = tkinter.Button(S, text="Spróbuj jeszcze raz!", command=reset1)
-        button2.pack()
+        a = 1
+        x += 1
 
     if frombox > liczba:
-        more = Label(S, text="za duża liczba")
+        more = Label(S, text="za duża liczba", fg="red")
         more.pack()
-        x+=1
-
-        proby= Label(S, text="Ilość prób: "+str(x))
-        proby.pack()
-        line = Label(S, text="============")
-        line.pack()
-
-        button.destroy()
-
-        button2 = tkinter.Button(S, text="Spróbuj jeszcze raz!", command=reset2)
-        button2.pack()
+        b = 1
+        x += 1
 
     if frombox == liczba:
-        win = Label(S, text="brawo, mój przyjacielu")
+        win = Label(S, text="brawo, mój przyjacielu", fg="orange")
         win.pack()
-        x+=1
+        c = 1
+        x += 1
 
-        proby= Label(S, text="Ilość prób: "+str(x))
-        proby.pack()
-        line = Label(S, text="============")
-        line.pack()
+    if c == 1:
+        proby = Label(S, text="Ilość prób: "+str(x))
+    else:
+        proby = Label(S, text="Ilość prób: " + str(x), fg="green")
 
-        button.destroy()
+    proby.pack()
+    line = Label(S, text="============")
+    line.pack()
 
-        button2 = tkinter.Button(S, text="Spróbuj jeszcze raz!", command=reset3)
-        button2.pack()
+    button.destroy()
+
+    if c == 1:
+        button3 = tkinter.Button(S,text="Zakończ grę", bg="red", command=esc)
+        button3.pack()
+
+    button2 = tkinter.Button(S, text="Spróbuj jeszcze raz!", command=reset)
+    button2.pack()
+
 
 S = Tk()
 S.title("Moduł I, temat 8")
-
+a = 0
+b = 0
+c = 0
 x = 0
 
 liczba = random.randint(1, 100)
@@ -97,4 +103,3 @@ button = tkinter.Button(S, text="Sprawdź czy trafiłeś!", command=prt)
 button.pack()
 
 S.mainloop()
-
