@@ -3,42 +3,45 @@ import tkinter
 import random
 
 def prt():
+    global x
     def reset1():
         twoja.destroy()
-        los.destroy()
         less.destroy()
         line.destroy()
+        proby.destroy()
         button2.destroy()
         prt()
 
     def reset2():
         twoja.destroy()
-        los.destroy()
         more.destroy()
         line.destroy()
+        proby.destroy()
         button2.destroy()
         prt()
 
     def reset3():
         twoja.destroy()
-        los.destroy()
         win.destroy()
         line.destroy()
+        proby.destroy()
         button2.destroy()
         prt()
 
     frombox = int(box.get())
-    liczba = random.randint(1, 100)
+
+    box.delete( 0,'end')
 
     twoja = Label(S, text=("Twoja liczba: " + str(frombox)))
     twoja.pack()
 
-    los = Label(S, text=("Wylosowana liczba: " + str(liczba)))
-    los.pack()
-
     if frombox < liczba:
         less = Label(S, text="za mała liczba")
         less.pack()
+        x+=1
+
+        proby= Label(S, text="Ilość prób: "+str(x))
+        proby.pack()
         line = Label(S, text="============")
         line.pack()
 
@@ -50,6 +53,10 @@ def prt():
     if frombox > liczba:
         more = Label(S, text="za duża liczba")
         more.pack()
+        x+=1
+
+        proby= Label(S, text="Ilość prób: "+str(x))
+        proby.pack()
         line = Label(S, text="============")
         line.pack()
 
@@ -61,6 +68,10 @@ def prt():
     if frombox == liczba:
         win = Label(S, text="brawo, mój przyjacielu")
         win.pack()
+        x+=1
+
+        proby= Label(S, text="Ilość prób: "+str(x))
+        proby.pack()
         line = Label(S, text="============")
         line.pack()
 
@@ -71,6 +82,10 @@ def prt():
 
 S = Tk()
 S.title("Moduł I, temat 8")
+
+x = 0
+
+liczba = random.randint(1, 100)
 
 wpis = Label(S, text="Wpisz liczbe")
 wpis.pack()
