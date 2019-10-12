@@ -1,105 +1,91 @@
-from tkinter import *
-from keyboard import press
 import tkinter
+from tkinter import *
 import random
 
 
-def esc():
-    S.destroy()
-
-
-def prt():
-    global a, b, c, x, liczba
+def check():
+    global success, try_count, random_number
 
     def reset():
-        global a, b, c, x, liczba
-        twoja.destroy()
+        global success, try_count, random_number
 
+        if 'less_label' in locals():
+            less_label.destroy()
+        if 'more_label' in locals():
+            more_label.destroy()
+        if success == 1:
+            quit_button.destroy()
+            win_label.destroy()
+            random_number = random.randint(1, 100)
+            success = False
+            try_count = -1
 
-        if a == 1:
-            less.destroy()
-            a = 0
-        if b == 1:
-            more.destroy()
-            b = 0
-        if c == 1:
-            button3.destroy()
-            win.destroy()
-            liczba = random.randint(1, 100)
-            c = 0
-            x = -1
-
-        line.destroy()
-        proby.destroy()
-        button2.destroy()
-        prt()
+        try_label.destroy()
+        feedback.destroy()
+        retry_button.destroy()
+        check()
 
     if box.get().isdigit():
         if int(box.get()) < 0 or int(box.get()) > 100:
-            frombox = 0
+            box_input = -1
+            feedback = Label(Okno, text="Twoja liczba musi zawierać się \n w przedziale od 0 do 100.")
         else:
-            frombox = int(box.get())
+            box_input = int(box.get())
+            feedback = Label(Okno, text="Twoja liczba: " + str(box_input))
     else:
-        frombox = 0
+        box_input = -1
+        feedback = Label(Okno, text="Możesz wpisywać tylko liczby")
 
     box.delete(0, 'end')
+    feedback.pack()
 
-    twoja = Label(S, text=("Twoja liczba: " + str(frombox)))
-    twoja.pack()
+    if box_input < random_number:
+        less_label = Label(Okno, text="za mała liczba", fg="red")
+        less_label.pack()
+        try_count += 1
 
-    if frombox < liczba:
-        less = Label(S, text="za mała liczba", fg="red")
-        less.pack()
-        a = 1
-        x += 1
+    if box_input > random_number:
+        more_label = Label(Okno, text="za duża liczba", fg="red")
+        more_label.pack()
+        try_count += 1
 
-    if frombox > liczba:
-        more = Label(S, text="za duża liczba", fg="red")
-        more.pack()
-        b = 1
-        x += 1
+    if box_input == random_number:
+        win_label = Label(Okno, text="brawo, mój przyjacielu", fg="orange")
+        win_label.pack()
+        success = True
+        try_count += 1
 
-    if frombox == liczba:
-        win = Label(S, text="brawo, mój przyjacielu", fg="orange")
-        win.pack()
-        c = 1
-        x += 1
+    try_label = Label(Okno, text="Ilość prób: " + str(try_count), fg="green")
+    try_label.pack()
 
-    if c == 1:
-        proby = Label(S, text="Ilość prób: "+str(x))
-    else:
-        proby = Label(S, text="Ilość prób: " + str(x), fg="green")
+    check_button.destroy()
 
-    proby.pack()
-    line = Label(S, text="============")
-    line.pack()
+    if success:
+        quit_button = tkinter.Button(Okno, text="Zakończ grę", bg="red", command=esc)
+        quit_button.pack()
 
-    button.destroy()
-
-    if c == 1:
-        button3 = tkinter.Button(S,text="Zakończ grę", bg="red", command=esc)
-        button3.pack()
-
-    button2 = tkinter.Button(S, text="Spróbuj jeszcze raz!", command=reset)
-    button2.pack()
+    retry_button = tkinter.Button(Okno, text="Spróbuj jeszcze raz!", command=reset)
+    retry_button.pack()
 
 
-S = Tk()
-S.title("Moduł I, temat 8")
-a = 0
-b = 0
-c = 0
-x = 0
+def esc():
+    Okno.destroy()
 
-liczba = random.randint(1, 100)
 
-wpis = Label(S, text="Wpisz liczbe")
-wpis.pack()
+success = 0
+try_count = 0
+random_number = random.randint(1, 100)
 
-box = Entry(S, bd=5)
+Okno = Tk()
+Okno.title("Moduł I, temat 8")
+
+task = Label(Okno, text="Wpisz liczbe")
+task.pack()
+
+box = Entry(Okno, bd=5)
 box.pack()
 
-button = tkinter.Button(S, text="Sprawdź czy trafiłeś!", command=prt)
-button.pack()
+check_button = tkinter.Button(Okno, text="Sprawdź czy trafiłeś!", command=check)
+check_button.pack()
 
-S.mainloop()
+Okno.mainloop()
