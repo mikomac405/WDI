@@ -2,7 +2,7 @@ import random
 
 rand = random.randint(1,100)
 print(rand)
-liczba = rand+1
+liczba = 0
 while liczba != rand:
     liczba = int(input("Podaj liczbę: "))
     if liczba < rand :
