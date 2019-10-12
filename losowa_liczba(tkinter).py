@@ -26,15 +26,11 @@ def check():
         check()
 
     if box.get().isdigit():
-        if int(box.get()) < 0 or int(box.get()) > 100:
-            box_input = -1
-            feedback = Label(window, text="Twoja liczba musi zawierać się \n w przedziale od 0 do 100.")
-        else:
-            box_input = int(box.get())
-            feedback = Label(window, text="Twoja liczba: " + str(box_input))
-    else:
+        box_input = int(box.get())
+        feedback = Label(window, text="Twoja liczba: " + str(box_input))
+    elif int(box.get()) > 100 or box.get().isdigit() is False:
         box_input = -1
-        feedback = Label(window, text="Możesz wpisywać tylko liczby")
+        feedback = Label(window, text="Możesz wpisywać tylko liczby w zakresie od 0 do 100")
 
     box.delete(0, 'end')
     feedback.pack()
