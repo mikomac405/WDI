@@ -11,4 +11,3 @@ while guess_number is not random_number:
         print("za duża liczba")
 print("brawo, mój przyjacielu")
 stop = input("Wcisnij enter, aby zakończyć")
-# testing github in pycharm

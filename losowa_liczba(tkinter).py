@@ -68,7 +68,6 @@ def esc():
     window.destroy()
 
 
-is_this_even_working = TRUE
 success = 0
 try_count = 0
 random_number = random.randint(1, 100)
