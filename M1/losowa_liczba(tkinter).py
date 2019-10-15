@@ -25,27 +25,27 @@ def check():
         retry_button.destroy()
         check()
 
-    if box.get().isdigit():
+    if box.get().isdigit() and int(box.get()) <= 100:
         box_input = int(box.get())
         feedback = Label(window, text="Twoja liczba: " + str(box_input))
-    elif int(box.get()) > 100 or box.get().isdigit() is False:
-        box_input = -1
-        feedback = Label(window, text="Możesz wpisywać tylko liczby w zakresie od 0 do 100")
+    else:
+        box_input = "STOP"
+        feedback = Label(window, text="Możesz wpisywać tylko LICZBY w zakresie od 0 do 100")
 
     box.delete(0, 'end')
     feedback.pack()
 
-    if box_input < random_number:
+    if box_input is not "STOP" and box_input < random_number:
         less_label = Label(window, text="za mała liczba", fg="red")
         less_label.pack()
         try_count += 1
 
-    if box_input > random_number:
+    if box_input is not "STOP" and box_input > random_number:
         more_label = Label(window, text="za duża liczba", fg="red")
         more_label.pack()
         try_count += 1
 
-    if box_input == random_number:
+    if box_input is not "STOP" and box_input == random_number:
         win_label = Label(window, text="brawo, mój przyjacielu", fg="orange")
         win_label.pack()
         success = True
