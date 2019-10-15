@@ -7,7 +7,7 @@ while guess_number is not random_number:
     guess_number = int(input("Podaj liczbę: "))
     if guess_number < random_number:
         print("za mała liczba")
-    if guess_number > random_number:
+    else:
         print("za duża liczba")
 print("brawo, mój przyjacielu")
 stop = input("Wcisnij enter, aby zakończyć")
