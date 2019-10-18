@@ -1,7 +1,6 @@
 import random
 
 random_number = random.randint(1, 100)
-print(random_number)
 guess_number = 0
 while guess_number is not random_number:
     guess_number = int(input("Podaj liczbę: "))
