@@ -18,7 +18,7 @@ def check():
             win_label.destroy()
             random_number = random.randint(1, 100)
             success = False
-            try_count = -1
+            try_count = 0
 
         try_label.destroy()
         feedback.destroy()
@@ -85,3 +85,5 @@ check_button = tkinter.Button(window, text="Sprawdź czy trafiłeś!", command=c
 check_button.pack()
 
 window.mainloop()
+
+
