@@ -51,6 +51,7 @@ void play() {
 
         if (wybor == pusta) {
             cout << "Wybrales zla bramke." << endl;
+            n--;
             continue;
         }
 
