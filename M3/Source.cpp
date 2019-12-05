@@ -1,78 +1,128 @@
 #include <iostream>
-#include <conio.h>
 #include <random>
 
 using namespace std;
 
-void main()
-{
-	random_device device;
-	mt19937 generator(device());
-	uniform_int_distribution<int> liczby(1, 3);
+void play();
 
-	bool stop = false;
-	float n, win, lose, stay, czejndz;
-	n = win = lose = stay = czejndz = 0;
+void simulate(int);
 
-	do
-	{
-		system("cls");
-		n++;
-		int wygrana = liczby(generator);
-		int wybor;
-		int pusta;
+random_device device;
+mt19937 generator(device());
+uniform_int_distribution<int> liczby(1, 3);
 
-		cout << "Wybierz numer bramki[1,2,3]";
-		cin >> wybor;
-		int tmp = wybor;
-		bool check = false;
+bool stop = false;
+float n{}, win{}, lose{}, stay{}, change{};
 
-		do
-		{
-			pusta = liczby(generator);
-			if (pusta != wygrana && pusta != wybor)
-				check = true;
-		} while (check != true);
+int main() {
+    play();
+    simulate(1000);
+    return 0;
+}
 
-		cout << "Pusta bramka: " << pusta << endl << wygrana << endl;
+void play() {
+    do {
+        n++;
+        int wygrana = liczby(generator);;
+        int wybor;
+        int pusta;
 
-		if (pusta == 1)
-			cout << "Wybierz numer bramki[2,3]: ";
-		if (pusta == 2)
-			cout << "Wybierz numer bramki[1,3]: ";
-		if (pusta == 3)
-			cout << "Wybierz numer bramki[1,2]: ";
+        cout << "Wybierz numer bramki[1,2,3]" << endl;
+        cin >> wybor;
+        int tmp = wybor;
+        bool check = false;
 
-		cin >> wybor;
+        do {
+            pusta = liczby(generator);
+            if (pusta != wygrana && pusta != wybor)
+                check = true;
+        } while (check != true);
 
+        cout << "Pusta bramka: " << pusta << endl;
 
-		if (wybor == wygrana)
-		{
-			cout << "Wygrales  ";
-			if (wybor == tmp)
-			{
-				stay++;
-			}
-			else
-			{
-				czejndz++;
-			}
-		}
-		else
-		{
-			cout << "Przegrales  ";
-		}
-		
-		char c;
-		cout << endl << "Grasz dalej? [t/n] ";
-		cin >> c;
-		if (c == 'n')
-		{
-			stop = true;
-		}
-	} while (stop != true);
-	
-	cout << "Stats: " << endl << "Zmiana: " << 100*(czejndz / n) << "%" << endl << "Zostan: " << 100*(stay / n)<< "%";
-	_getch();
- 
+        if (pusta == 1)
+            cout << "Wybierz numer bramki[2,3]: ";
+        if (pusta == 2)
+            cout << "Wybierz numer bramki[1,3]: ";
+        if (pusta == 3)
+            cout << "Wybierz numer bramki[1,2]: ";
+
+        cin >> wybor;
+
+        if (wybor == pusta) {
+            cout << "Wybrales zla bramke." << endl;
+            continue;
+        }
+
+        if (wybor == wygrana) {
+            cout << "Wygrales!";
+            if (wybor == tmp) {
+                stay++;
+            } else {
+                change++;
+            }
+        } else {
+            cout << "Pudlo!" << endl;
+            if (wybor == tmp) {
+                change++;
+            } else {
+                stay++;
+            }
+        }
+
+        cout << "Statystki: " << endl << "Zmiana: " << 100 * (change / n) << "%" << endl << "Pozostanie: "
+             << 100 * (stay / n) << "%";
+
+        char c;
+        cout << endl << "Grasz dalej? [t/n] " << endl;
+        cin >> c;
+        if (c == 'n') {
+            stop = true;
+        }
+    } while (stop != true);
+}
+
+void simulate(int counter) {
+    cout << "Przeprowadzmy symulacje: " << endl;
+    bool switcher{};
+    for (int i = 1; i <= counter; i++) {
+        n++;
+        int wygrana = liczby(generator);
+        int wybor = liczby(generator);
+        int pusta;
+        int tmp = wybor;
+
+        bool check = false;
+        do {
+            pusta = liczby(generator);
+            if (pusta != wygrana && pusta != wybor)
+                check = true;
+        } while (check != true);
+
+        check = false;
+        if (switcher) {
+            do {
+                wybor = liczby(generator);
+                if (wybor != pusta && pusta != tmp)
+                    check = true;
+            } while (check != true);
+        }
+        switcher = !switcher;
+
+        if (wybor == wygrana) {
+            if (wybor == tmp) {
+                stay++;
+            } else {
+                change++;
+            }
+        } else {
+            if (wybor == tmp) {
+                change++;
+            } else {
+                stay++;
+            }
+        }
+    }
+    cout << "Statystki: " << endl << "Zmiana: " << 100 * (change / n) << "%" << endl << "Pozostanie: "
+         << 100 * (stay / n) << "%";
 }
