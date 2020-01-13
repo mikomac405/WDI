@@ -1,0 +1,212 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[polish]{babel}
+\usepackage[lf]{berenis}
+\usepackage[LY1]{fontenc}
+
+
+\usepackage{utopia}
+
+\usepackage{listings}
+\usepackage[dvipsnames]{xcolor}
+
+ \lstset{
+basicstyle=\scriptsize\sffamily\color{black},
+frame=single,
+numbers=left,
+numbersep=5pt,
+numberstyle=\tiny\color{gray},
+showspaces=false,
+showstringspaces=false,
+tabsize=1
+}
+ 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstdefinelanguage{Kotlin}{
+  comment=[l]{//},
+  commentstyle={\color{gray}\ttfamily},
+  emph={delegate, filter, first, firstOrNull, forEach, lazy, map, mapNotNull, println, return@},
+  emphstyle={\color{red}},
+  identifierstyle=\color{black},
+  keywords={abstract, actual, as, as?, break, by, class, companion, continue, data, do, dynamic, else, enum, expect, false, final, for, fun, get, if, import, in, interface, internal, is, null, object, override, package, private, public, return, set, super, suspend, this, throw, true, try, typealias, val, var, vararg, when, where, while},
+  keywordstyle={\color{blue}\bfseries},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  morestring=[s]{"""*}{*"""},
+  ndkeywords={@Deprecated, @JvmField, @JvmName, @JvmOverloads, @JvmStatic, @JvmSynthetic, Array, Byte, Double, Float, Int, Integer, Iterable, Long, Runnable, Short, String},
+  ndkeywordstyle={\color{orange}\bfseries},
+  sensitive=true,
+  stringstyle={\color{green}\ttfamily},
+}
+ 
+\lstset{style=mystyle}
+
+\usetheme{CambridgeUS}
+\usecolortheme{default}
+
+\title[Kotlin]{Kotlin - Przyszłość aplikacji mobilnych}
+\author{Mikołaj Macura}
+\institute{RMS}
+\date{2019}
+
+%=============================================
+
+\begin{document}
+
+\frame{\titlepage}
+
+%=============================================
+
+\begin{frame}
+\frametitle{Podstawowe informacje}
+
+\begin{block}{Cechy}
+Wieloparadygmatowy, Typowanie statyczne, Działa na JVM
+\end{block}
+
+\begin{block}{Rok}
+2011
+\end{block}
+
+\begin{block}{Twórcy}
+JetBrains
+\end{block}
+
+\begin{block}{Założenia}
+
+\begin{itemize}
+\item Prędkość kompilacji na poziomie Javy
+\item Interoperacyjność z kodem Javy
+\item Eliminacja błędów odwołania [null-pointer safety]
+\end{itemize}
+\end{block}
+\end{frame}
+
+%=============================================
+
+\begin{frame}[fragile]
+
+Kotlin:
+\begin{lstlisting}[label={lst:example1}, language=Kotlin]
+fun main(args: Array<String>) {
+    val Liczba1: Int = 10
+    var Liczba2: Int = 20
+    val suma = Liczba1 + Liczba2
+    println("Suma tych liczb to: $suma")
+}
+\end{lstlisting}
+
+Java:
+\begin{lstlisting}[label={lst:example2}, language=Java]
+public class Dodawanie {
+    public static void main(String[] args) {
+        
+        static int Liczba1 = 10;
+        int Liczba2 = 20;
+        static int suma = Liczba1 + Liczba2;
+        System.out.println("Suma tych liczb to: " + suma);
+    }
+}
+\end{lstlisting}
+\end{frame}
+
+%=============================================
+
+\begin{frame}
+\begin{figure}
+    \centering
+    \href{https://kotlinlang.org/}{\includegraphics[scale = 0.06]{pic/Kotlin_logo.png}}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.4\textwidth]{pic/Android_Logo.png} % first figure itself
+
+    \end{minipage}\hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.4\textwidth]{pic/IDEA_Logo.png} % second figure itself
+    \end{minipage}
+\end{figure}
+
+\end{frame}
+
+%=============================================
+
+\begin{frame}
+
+\begin{figure}
+    \centering
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.4\textwidth]{pic/pinterest.png} % first figure itself
+    \end{minipage}\hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.4\textwidth]{pic/postmates.png} % second figure itself
+    \end{minipage}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.4\textwidth]{pic/uber.jpg} % first figure itself
+    \end{minipage}\hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.4\textwidth]{pic/evernote.png} % second figure itself
+    \end{minipage}
+\end{figure}
+
+\end{frame}
+
+%=============================================
+
+\begin{frame}{Powody migracji z Javy na Kotlina}
+
+\begin{block}{Zalety Kotlina}
+\begin{itemize}
+    \item Zwięzłość
+    \item Większy komfort użytkowania aplikacji
+    \item System Fail-Fast
+    \item Doskonała dokumentacja
+    \item Wsparcie społeczności
+\end{itemize}
+\end{block}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.2]{pic/andr_kotlin.png}
+    \label{fig:my_label}
+\end{figure}
+
+\end{frame}
+
+\end{document}
